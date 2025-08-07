@@ -1,0 +1,90 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.1.3/schema.json",
+    "root": true,
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "includes": [
+            "src/**/*.{js,ts,jsx,tsx}",
+            "!src/**/*.test.*",
+            "!src/**/*.spec.*",
+            "!**/*.min.js"
+        ],
+        "ignoreUnknown": true
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 120,
+        "lineEnding": "lf"
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "correctness": {
+                "noUnusedVariables": "off",
+                "noUnusedImports": "off",
+                "noUnusedFunctionParameters": "off"
+            },
+            "nursery": {
+                "useSortedClasses": {
+                    "level": "info",
+                    "options": {
+                        "attributes": ["class", "className"],
+                        "functions": ["clsx", "cva", "tw", "tw.*"]
+                    }
+                }
+            },
+            "style": {
+                "noNonNullAssertion": "off"
+            }
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": {
+                    "level": "on",
+                    "options": {
+                        "groups": [
+                            ":NODE:",
+                            ":PACKAGE:",
+                            ":BLANK_LINE:",
+                            "@/components/**",
+                            "@/utils/**",
+                            ":BLANK_LINE:",
+                            "./**"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "double",
+            "semicolons": "always",
+            "trailingCommas": "all",
+            "arrowParentheses": "always",
+            "bracketSpacing": true
+        }
+    },
+    "overrides": [
+        {
+            "includes": ["**/*.test.{js,ts,jsx,tsx}"],
+            "linter": {
+                "rules": {
+                    "suspicious": {
+                        "noExplicitAny": "off"
+                    }
+                }
+            }
+        }
+    ]
+}

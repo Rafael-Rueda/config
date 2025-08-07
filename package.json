@@ -1,0 +1,12 @@
+{
+  "name": "@rueda.dev/config",
+  "version": "1.0.6",
+  "type": "module",
+  "keywords": [],
+  "author": "Rafael Rueda",
+  "license": "ISC",
+  "description": "Rafael Rueda Linting Configuration",
+  "exports": {
+    "./biome": "./config/linting/biome.json"
+  }
+}
