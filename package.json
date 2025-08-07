@@ -1,6 +1,6 @@
 {
   "name": "@rueda.dev/config",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "keywords": [],
   "author": "Rafael Rueda",
@@ -8,5 +8,13 @@
   "description": "Rafael Rueda Linting Configuration",
   "exports": {
     "./biome": "./config/linting/biome.json"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rafael-Rueda/config.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Rafael-Rueda/config/issues"
+  },
+  "homepage": "https://github.com/Rafael-Rueda/config#readme"
 }
