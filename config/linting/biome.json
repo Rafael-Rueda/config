@@ -9,6 +9,8 @@
     "files": {
         "includes": [
             "src/**/*.{js,ts,jsx,tsx}",
+            "test/**/*.{js,ts,jsx,tsx}",
+            "database/**/*.{js,ts,jsx,tsx}",
             "!src/**/*.test.*",
             "!src/**/*.spec.*",
             "!**/*.min.js"
