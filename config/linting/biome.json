@@ -13,7 +13,11 @@
             "database/**/*.{js,ts,jsx,tsx}",
             "!src/**/*.test.*",
             "!src/**/*.spec.*",
-            "!**/*.min.js"
+            "!**/*.min.js",
+            "*.config.*",
+            "*.json",
+            "server.{js,ts}",
+            ".vscode/settings.json"
         ],
         "ignoreUnknown": true
     },
