@@ -8,8 +8,8 @@
     },
     "files": {
         "includes": [
-            "src/**/*.{js,ts,jsx,tsx}",
-            "test/**/*.{js,ts,jsx,tsx}",
+            "src/**/*.{js,ts,jsx,tsx,spec.ts,test.ts,spec.tsx,test.tsx}",
+            "test/**/*.{js,ts,jsx,tsx,spec.ts,test.ts,spec.tsx,test.tsx}",
             "database/**/*.{js,ts,jsx,tsx}",
             "!src/**/*.test.*",
             "!src/**/*.spec.*",
