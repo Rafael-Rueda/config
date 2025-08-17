@@ -11,6 +11,7 @@
             "src/**/*.{js,ts,jsx,tsx}",
             "test/**/*.{js,ts,jsx,tsx}",
             "database/**/*.{js,ts,jsx,tsx}",
+            "prisma/**/*.{js,ts,jsx,tsx,prisma}",
             "src/**/*.test.*",
             "src/**/*.spec.*",
             "!**/*.min.js",
