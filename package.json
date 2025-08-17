@@ -1,6 +1,6 @@
 {
 	"name": "@rueda.dev/config",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"type": "module",
 	"scripts": {
     	"setup": "node scripts/loadAll.js"
@@ -15,6 +15,9 @@
 	"exports": {
 		"./biome": "./config/linting/biome.json",
 		"./vscode": "./config/vscode/settings.json"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.1.4"
 	},
 	"repository": {
 		"type": "git",
