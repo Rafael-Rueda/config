@@ -27,7 +27,7 @@ export async function setupBiomeSettings() {
       console.log('📄 Criando novo arquivo de configurações...');
       try {
         const configContent = {
-          "$schema": "https://biomejs.dev/schemas/2.1.4/schema.json",
+          "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
           "extends": ["@rueda.dev/config/biome"]
         }
     
