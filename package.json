@@ -16,8 +16,8 @@
 		"./biome": "./config/linting/biome.json",
 		"./vscode": "./config/vscode/settings.json"
 	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.1.4"
+	"dependencies": {
+		"@biomejs/biome": "^2.2.0"
 	},
 	"repository": {
 		"type": "git",
