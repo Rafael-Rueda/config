@@ -22,7 +22,9 @@ Este repositório centraliza configurações de lint e formatter para projetos T
 ## 📦 Instalação
 
 ```bash
-npm install --save-dev @rueda.dev/config
+npm install -D "@rueda.dev/config"
+# Auto-Setup
+npx "@rueda.dev/config" setup
 ```
 
 ### BiomeJS
