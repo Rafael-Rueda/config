@@ -14,7 +14,12 @@ export async function setupBiomeSettings() {
   
       const finalConfig = {
         ...config,
-        extends: ['@rueda.dev/config/biome']
+        extends: ['@rueda.dev/config/biome'],
+        vcs: {
+            "enabled": true,
+            "clientKind": "git",
+            "useIgnoreFile": true
+          },
       };
   
       await fs.writeFile(targetPath, JSON.stringify(finalConfig, null, 2));
@@ -28,7 +33,12 @@ export async function setupBiomeSettings() {
       try {
         const configContent = {
           "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
-          "extends": ["@rueda.dev/config/biome"]
+          "extends": ["@rueda.dev/config/biome"],
+          "vcs": {
+            "enabled": true,
+            "clientKind": "git",
+            "useIgnoreFile": true
+          },
         }
     
         await fs.writeFile(targetPath, JSON.stringify(configContent, null, 2));

@@ -17,7 +17,7 @@
 		"./vscode": "./config/vscode/settings.json"
 	},
 	"dependencies": {
-		"@biomejs/biome": "^2.2.0"
+		"@biomejs/biome": "^2.3.0"
 	},
 	"repository": {
 		"type": "git",
