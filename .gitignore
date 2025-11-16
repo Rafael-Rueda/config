@@ -25,6 +25,7 @@ node_modules/
 /.gemini/
 /.claude/
 /.taskmaster/
+PRD.md
 
 # OS specific
 .DS_Store
