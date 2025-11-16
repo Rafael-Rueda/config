@@ -1,0 +1,11 @@
+{
+  "model": "claude-sonnet-4-5-20250929",
+  "includeCoAuthoredBy": true,
+  "cleanupPeriodDays": 30,
+  "env": {},
+  "enableAllProjectMcpServers": true,
+  "statusLine": {
+    "type": "command",
+    "command": "echo ''"
+  }
+}
