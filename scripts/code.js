@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readConfig, writeConfig } from './configUtils.js';
+import { setupGitignore } from './gitignore.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -88,7 +89,10 @@ export async function setupCode(targetDir = process.cwd(), options = {}) {
 	}
 
 	if (results.gemini || results.claude) {
-		console.log('✨ Configuração concluída!');
+		// Garante que as pastas de configuração geradas sejam ignoradas pelo Git
+		setupGitignore(targetDir);
+
+		console.log('\n✨ Configuração concluída!');
 		console.log('\n💡 Lembre-se de definir suas variáveis de ambiente:');
 		if (results.gemini) console.log('   - GEMINI_API_KEY');
 		if (results.claude) {
