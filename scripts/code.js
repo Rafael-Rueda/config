@@ -1,9 +1,10 @@
 import fs from 'node:fs';
-import { path, join, dirname } from 'node:path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { readConfig, writeConfig } from './configUtils.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 const CONFIG_DIR = path.join(__dirname, '..', 'config', 'code');
 const GEMINI_CONFIG = path.join(CONFIG_DIR, '.gemini', 'settings.json');
