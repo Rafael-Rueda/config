@@ -1,8 +1,11 @@
 import fs from 'node:fs';
-import path from 'node:path';
+import { path, join, dirname } from 'node:path';
 import { readConfig, writeConfig } from './configUtils.js';
 
-const CONFIG_DIR = path.join(process.cwd(), 'config', 'code');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const CONFIG_DIR = path.join(__dirname, '..', 'config', 'code');
 const GEMINI_CONFIG = path.join(CONFIG_DIR, '.gemini', 'settings.json');
 const CLAUDE_CONFIG = path.join(CONFIG_DIR, '.claude', 'settings.json');
 const CLAUDE_MCP_CONFIG = path.join(CONFIG_DIR, '.claude', '.mcp.json');
