@@ -82,6 +82,9 @@
             "arrowParentheses": "always",
             "bracketSpacing": true,
             "jsxQuoteStyle": "double"
+        },
+        "parser": {
+            "unsafeParameterDecoratorsEnabled": true
         }
     },
     "overrides": [
