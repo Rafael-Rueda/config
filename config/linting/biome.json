@@ -1,102 +1,112 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
-    "root": true,
-    "vcs": {
-        "enabled": true,
-        "clientKind": "git",
-        "useIgnoreFile": true
-    },
-    "files": {
-        "includes": [
-            "src/**/*.{js,ts,jsx,tsx}",
-            "test/**/*.{js,ts,jsx,tsx}",
-            "database/**/*.{js,ts,jsx,tsx}",
-            "prisma/**/*.{js,ts,jsx,tsx,prisma}",
-            "src/**/*.test.*",
-            "src/**/*.spec.*",
-            "!**/*.min.js",
-            "*.config.*",
-            "*.json",
-            "server.{js,ts}",
-            ".vscode/settings.json"
-        ],
-        "ignoreUnknown": true
-    },
-    "formatter": {
-        "enabled": true,
-        "indentStyle": "space",
-        "indentWidth": 4,
-        "lineWidth": 120,
-        "lineEnding": "lf"
-    },
-    "linter": {
-        "enabled": true,
-        "rules": {
-            "recommended": true,
-            "correctness": {
-                "noUnusedVariables": "off",
-                "noUnusedImports": "off",
-                "noUnusedFunctionParameters": "off"
-            },
-            "nursery": {
-                "useSortedClasses": {
-                    "level": "info",
-                    "options": {
-                        "attributes": ["class", "className"],
-                        "functions": ["clsx", "cva", "tw", "tw.*"]
-                    },
-                    "fix": "safe"
-                }
-            },
-            "style": {
-                "noNonNullAssertion": "off"
-            }
-        }
-    },
-    "assist": {
-        "enabled": true,
-        "actions": {
-            "source": {
-                "organizeImports": {
-                    "level": "on",
-                    "options": {
-                        "groups": [
-                            ":NODE:",
-                            ":PACKAGE:",
-                            ":BLANK_LINE:",
-                            "@/components/**",
-                            "@/utils/**",
-                            ":BLANK_LINE:",
-                            "./**"
-                        ]
-                    }
-                }
-            }
-        }
-    },
-    "javascript": {
-        "formatter": {
-            "quoteStyle": "double",
-            "semicolons": "always",
-            "trailingCommas": "all",
-            "arrowParentheses": "always",
-            "bracketSpacing": true,
-            "jsxQuoteStyle": "double"
-        },
-        "parser": {
-            "unsafeParameterDecoratorsEnabled": true
-        }
-    },
-    "overrides": [
-        {
-            "includes": ["**/*.test.{js,ts,jsx,tsx}"],
-            "linter": {
-                "rules": {
-                    "suspicious": {
-                        "noExplicitAny": "off"
-                    }
-                }
-            }
-        }
-    ]
+	"$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
+	"root": true,
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"includes": [
+			"src/**/*.{js,ts,jsx,tsx}",
+			"test/**/*.{js,ts,jsx,tsx}",
+			"database/**/*.{js,ts,jsx,tsx}",
+			"prisma/**/*.{js,ts,jsx,tsx,prisma}",
+			"src/**/*.test.*",
+			"src/**/*.spec.*",
+			"!**/*.min.js",
+			"*.config.*",
+			"*.json",
+			"server.{js,ts}",
+			".vscode/settings.json",
+			"**/*.{js,ts,jsx,tsx}"
+		],
+		"ignoreUnknown": true
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "space",
+		"indentWidth": 4,
+		"lineWidth": 120,
+		"lineEnding": "lf"
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noUnusedVariables": "off",
+				"noUnusedImports": "off",
+				"noUnusedFunctionParameters": "off"
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"level": "info",
+					"options": {
+						"attributes": ["class", "className"],
+						"functions": ["clsx", "cva", "tw", "tw.*"]
+					},
+					"fix": "safe"
+				}
+			},
+			"style": {
+				"noNonNullAssertion": "off"
+			}
+		}
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": [
+							":NODE:",
+							":PACKAGE:",
+							":BLANK_LINE:",
+							"@/components/**",
+							"@/utils/**",
+							":BLANK_LINE:",
+							"./**"
+						]
+					}
+				}
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double",
+			"semicolons": "always",
+			"trailingCommas": "all",
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"jsxQuoteStyle": "double"
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		}
+	},
+	"html": {
+		"formatter": { "enabled": true },
+		"experimentalFullSupportEnabled": true
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.test.{js,ts,jsx,tsx}"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noExplicitAny": "off"
+					}
+				}
+			}
+		}
+	]
 }

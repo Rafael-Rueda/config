@@ -23,7 +23,7 @@
 		"./claude": "./config/code/.claude/settings.json"
 	},
 	"dependencies": {
-		"@biomejs/biome": "^2.3.5"
+		"@biomejs/biome": "^2.3.8"
 	},
 	"repository": {
 		"type": "git",
