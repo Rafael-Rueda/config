@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+.nuxt/
+out/
+
+# Coverage
+coverage/
+
+# Minified files
+*.min.js
+*.min.css
+
+# Lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Generated
+*.generated.*
+.vercel/

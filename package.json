@@ -14,16 +14,26 @@
 	"license": "ISC",
 	"description": "Rafael Rueda Linting Configuration",
 	"devDependencies": {
+		"@eslint/js": "^9.39.2",
+		"eslint": "^9.39.2",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.4",
+		"eslint-plugin-simple-import-sort": "^12.1.1",
+		"globals": "^16.5.0",
+		"prettier": "^3.7.4",
+		"prettier-plugin-tailwindcss": "^0.7.2",
+		"typescript-eslint": "^8.49.0",
 		"vitest": "^2.0.4"
+	},
+	"dependencies": {
+		"@biomejs/biome": "^2.3.8",
+		"@inquirer/prompts": "^8.1.0"
 	},
 	"exports": {
 		"./biome": "./config/linting/biome.json",
 		"./vscode": "./config/vscode/settings.json",
 		"./gemini": "./config/code/.gemini/settings.json",
 		"./claude": "./config/code/.claude/settings.json"
-	},
-	"dependencies": {
-		"@biomejs/biome": "^2.3.8"
 	},
 	"repository": {
 		"type": "git",
