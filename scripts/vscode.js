@@ -5,10 +5,15 @@ import { join, dirname } from "node:path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export async function setupVSCodeSettings() {
+/**
+ * Sets up VS Code settings based on the chosen linting tool
+ * @param {Object} options
+ * @param {'biome' | 'eslint'} options.linter - The linting tool to configure for
+ */
+export async function setupVSCodeSettings(options = { linter: "biome" }) {
     try {
-        // Path to the configuration file in your package
-        const configPath = join(__dirname, "..", "config", "vscode", "settings.json");
+        const configFileName = options.linter === "eslint" ? "settings.eslint.json" : "settings.biome.json";
+        const configPath = join(__dirname, "..", "config", "vscode", configFileName);
 
         // Target path in the user's project
         const targetDir = join(process.cwd(), ".vscode");
@@ -40,7 +45,7 @@ export async function setupVSCodeSettings() {
         }
 
         // Write the final settings
-        await fs.writeFile(targetPath, JSON.stringify(finalConfig, null, 2));
+        await fs.writeFile(targetPath, JSON.stringify(finalConfig, null, 4));
 
         console.log("  VS Code settings applied successfully!");
         console.log(`  Created: ${targetPath}`);

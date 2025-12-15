@@ -46,9 +46,9 @@ async function runSetup() {
 
     printSection("Setting Up Your Project");
 
-    // VS Code settings
+    // VS Code settings (pass linting choice)
     console.log("Setting up VS Code...");
-    await setupVSCodeSettings();
+    await setupVSCodeSettings({ linter: lintingChoice });
 
     // Linting setup
     if (lintingChoice === "biome") {
@@ -70,7 +70,7 @@ async function runSetup() {
     printSection("Setup Complete!");
 
     console.log("Your project has been configured with:\n");
-    console.log(`  - VS Code settings`);
+    console.log(`  - VS Code settings (configured for ${lintingChoice === "biome" ? "Biome" : "ESLint + Prettier"})`);
     console.log(`  - ${lintingChoice === "biome" ? "Biome" : "ESLint + Prettier"}`);
     if (generateAIFiles) {
         console.log("  - Claude Code configuration");

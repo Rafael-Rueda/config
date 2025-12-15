@@ -1,6 +1,6 @@
 {
 	"name": "@rueda.dev/config",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"type": "module",
 	"scripts": {
 		"setup": "node scripts/loadAll.js",
@@ -31,7 +31,10 @@
 	},
 	"exports": {
 		"./biome": "./config/linting/biome.json",
-		"./vscode": "./config/vscode/settings.json",
+		"./eslint": "./config/linting/eslint.config.js",
+		"./prettier": "./config/linting/.prettierrc.json",
+		"./vscode/biome": "./config/vscode/settings.biome.json",
+		"./vscode/eslint": "./config/vscode/settings.eslint.json",
 		"./gemini": "./config/code/.gemini/settings.json",
 		"./claude": "./config/code/.claude/settings.json"
 	},

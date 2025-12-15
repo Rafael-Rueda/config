@@ -1,11 +1,18 @@
-import { promises as fs } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { existsSync, promises as fs } from "node:fs";
+import { join } from "node:path";
+import { execSync } from "node:child_process";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const CONFIG_DIR = join(__dirname, "..", "config", "linting");
+const ESLINT_DEPENDENCIES = [
+    "eslint",
+    "prettier",
+    "typescript-eslint",
+    "@eslint/js",
+    "eslint-plugin-prettier",
+    "eslint-config-prettier",
+    "eslint-plugin-simple-import-sort",
+    "prettier-plugin-tailwindcss",
+    "globals",
+];
 
 const ESLINT_CONFIG_CONTENT = `import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
@@ -147,6 +154,44 @@ yarn.lock
 .vercel/
 `;
 
+/**
+ * Detects the package manager used in the project
+ */
+function detectPackageManager() {
+    const cwd = process.cwd();
+
+    if (existsSync(join(cwd, "bun.lockb"))) return "bun";
+    if (existsSync(join(cwd, "pnpm-lock.yaml"))) return "pnpm";
+    if (existsSync(join(cwd, "yarn.lock"))) return "yarn";
+    return "npm";
+}
+
+/**
+ * Installs dependencies using the detected package manager
+ */
+function installDependencies(dependencies) {
+    const pm = detectPackageManager();
+    const depsString = dependencies.join(" ");
+
+    const commands = {
+        npm: `npm install -D ${depsString}`,
+        pnpm: `pnpm add -D ${depsString}`,
+        yarn: `yarn add -D ${depsString}`,
+        bun: `bun add -D ${depsString}`,
+    };
+
+    console.log(`\n  Installing dependencies with ${pm}...`);
+    console.log(`  This may take a moment...\n`);
+
+    try {
+        execSync(commands[pm], { stdio: "inherit", cwd: process.cwd() });
+        console.log("\n  Dependencies installed successfully!");
+    } catch (error) {
+        console.error("\n  Failed to install dependencies:", error.message);
+        console.log(`\n  You can install them manually:\n  ${commands[pm]}`);
+    }
+}
+
 export async function setupESLintSettings() {
     const projectDir = process.cwd();
 
@@ -154,26 +199,24 @@ export async function setupESLintSettings() {
         // Create ESLint config
         const eslintPath = join(projectDir, "eslint.config.js");
         await fs.writeFile(eslintPath, ESLINT_CONFIG_CONTENT);
-        console.log(`  Created: ${eslintPath}`);
+        console.log(`  Created: eslint.config.js`);
 
         // Create Prettier config
         const prettierPath = join(projectDir, ".prettierrc.json");
         await fs.writeFile(prettierPath, JSON.stringify(PRETTIER_CONFIG, null, 4));
-        console.log(`  Created: ${prettierPath}`);
+        console.log(`  Created: .prettierrc.json`);
 
         // Create Prettier ignore
         const prettierIgnorePath = join(projectDir, ".prettierignore");
         await fs.writeFile(prettierIgnorePath, PRETTIER_IGNORE);
-        console.log(`  Created: ${prettierIgnorePath}`);
+        console.log(`  Created: .prettierignore`);
 
-        console.log("\nESLint + Prettier configuration applied successfully!");
+        console.log("\n  ESLint + Prettier configuration files created!");
 
-        console.log("\nRequired dependencies:");
-        console.log(
-            "  npm i -D eslint prettier typescript-eslint @eslint/js eslint-plugin-prettier eslint-config-prettier eslint-plugin-simple-import-sort prettier-plugin-tailwindcss globals",
-        );
+        // Install dependencies
+        installDependencies(ESLINT_DEPENDENCIES);
     } catch (error) {
-        console.error("Failed to apply ESLint settings:", error.message);
+        console.error("  Failed to apply ESLint settings:", error.message);
         process.exit(1);
     }
 }
