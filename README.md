@@ -1,14 +1,16 @@
 # @rueda.dev/config
 
-🎛️ Configurações compartilhadas de linting e formatação da [rueda.dev](https://rueda.dev).  
-Atualmente com suporte a [BiomeJS](https://biomejs.dev) via `extends`.
+🎛️ Configurações compartilhadas de linting e formatação da [rueda.dev](https://rueda.dev).
+Suporta [BiomeJS](https://biomejs.dev) ou [ESLint](https://eslint.org) + [Prettier](https://prettier.io).
 
 ![npm version](https://img.shields.io/npm/v/@rueda.dev/config?label=npm)
 ![license](https://img.shields.io/npm/l/@rueda.dev/config)
-![biome](https://img.shields.io/badge/Built%20for-BiomeJS-blue?logo=eslint)
-![Gemini](https://img.shields.io/badge/Configures-Gemini_CLI-blueviolet?logo=google-gemini)
-![Claude](https://img.shields.io/badge/Configures-Claude_Code-orange)
-![Gitignore](https://img.shields.io/badge/Manages-.gitignore-red?logo=git)
+![biome](https://img.shields.io/badge/Biome-60a5fa?logo=biome&logoColor=fff)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?logo=eslint&logoColor=fff)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?logo=prettier&logoColor=fff)
+![Gemini](https://img.shields.io/badge/Gemini_CLI-8E75B2?logo=google-gemini&logoColor=fff)
+![Claude](https://img.shields.io/badge/Claude_Code-D97757)
+![Gitignore](https://img.shields.io/badge/.gitignore-F05032?logo=git&logoColor=fff)
 
 ---
 
