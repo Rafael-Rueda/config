@@ -1,0 +1,79 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://rueda.dev/schemas/agent-profile.schema.json",
+    "title": "Rueda.Dev local agent profiles",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["version", "activeProfile", "profiles"],
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "version": {
+            "const": 1
+        },
+        "activeProfile": {
+            "type": "string",
+            "minLength": 1
+        },
+        "profiles": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "#/$defs/profile"
+            }
+        },
+        "generated": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+            }
+        },
+        "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "$defs": {
+        "profile": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["providers", "capabilities"],
+            "properties": {
+                "providers": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "enum": ["codex", "devin", "gemini", "claude", "cline"]
+                    }
+                },
+                "capabilities": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                        "enum": [
+                            "verify-change",
+                            "dependency-upgrade",
+                            "lint-alignment",
+                            "release-readiness",
+                            "handoff-summary"
+                        ]
+                    }
+                },
+                "routingProfile": {
+                    "enum": ["routine", "complex"]
+                },
+                "modelOverrides": {
+                    "type": "object",
+                    "description": "Personal provider model choices. Stored only in this ignored local manifest.",
+                    "additionalProperties": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            }
+        }
+    }
+}

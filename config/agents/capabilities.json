@@ -1,0 +1,93 @@
+{
+    "$schema": "./schema.json",
+    "version": 1,
+    "defaultCapabilities": [
+        "verify-change",
+        "dependency-upgrade",
+        "lint-alignment",
+        "release-readiness",
+        "handoff-summary"
+    ],
+    "routingProfiles": {
+        "routine": {
+            "description": "Prefer the provider's portable automatic or balanced selection for routine work",
+            "providers": {
+                "codex": { "selection": "host", "preferenceLabel": "GPT-5.6 Sol when available" },
+                "claude": { "selection": "alias", "value": "sonnet" },
+                "gemini": { "selection": "alias", "value": "auto" }
+            }
+        },
+        "complex": {
+            "description": "Prefer the user's high-reasoning host option for complex coding and analysis",
+            "providers": {
+                "codex": { "selection": "host", "preferenceLabel": "GPT-5.6 Sol with higher reasoning when available" },
+                "claude": { "selection": "model", "value": "claude-sonnet-5" },
+                "gemini": { "selection": "alias", "value": "pro" }
+            }
+        }
+    },
+    "providers": {
+        "codex": {
+            "label": "Codex",
+            "description": "OpenAI Codex CLI, app, or IDE extension",
+            "command": "codex",
+            "recommended": true,
+            "skillMode": "native",
+            "skillPath": ".agents/skills"
+        },
+        "devin": {
+            "label": "Devin",
+            "description": "Devin CLI or an ACP-aware Devin host",
+            "command": "devin",
+            "recommended": true,
+            "skillMode": "native",
+            "skillPath": ".agents/skills"
+        },
+        "gemini": {
+            "label": "Gemini CLI",
+            "description": "Google Gemini CLI",
+            "command": "gemini",
+            "recommended": false,
+            "skillMode": "native",
+            "skillPath": ".agents/skills"
+        },
+        "claude": {
+            "label": "Claude Code",
+            "description": "Anthropic Claude Code",
+            "command": "claude",
+            "recommended": false,
+            "skillMode": "copy",
+            "skillPath": ".claude/skills"
+        },
+        "cline": {
+            "label": "Cline",
+            "description": "Cline in VS Code or the Cline CLI",
+            "command": "cline",
+            "recommended": false,
+            "skillMode": "copy",
+            "skillPath": ".cline/skills"
+        }
+    },
+    "capabilities": {
+        "verify-change": {
+            "label": "Verify change",
+            "description": "Discover and run the repository's existing verification commands"
+        },
+        "dependency-upgrade": {
+            "label": "Dependency upgrade",
+            "description": "Plan dependency updates with engines, peers, migrations, and validation"
+        },
+        "lint-alignment": {
+            "label": "Lint alignment",
+            "description": "Audit intentional Biome and ESLint rule parity without reformatting"
+        },
+        "release-readiness": {
+            "label": "Release readiness",
+            "description": "Check package contents, tests, repository state, and release blockers"
+        },
+        "handoff-summary": {
+            "label": "Handoff summary",
+            "description": "Produce a provider-neutral completion or blocker report"
+        }
+    }
+}

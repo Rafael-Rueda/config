@@ -1,7 +1,7 @@
-import { existsSync, promises as fs } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
+import { existsSync, promises as fs } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -71,7 +71,7 @@ export async function setupBiomeSettings() {
         console.log("  Creating new Biome configuration file...");
         try {
             const configContent = {
-                $schema: "https://biomejs.dev/schemas/2.3.8/schema.json",
+                $schema: "https://biomejs.dev/schemas/2.5.9/schema.json",
                 extends: ["@rueda.dev/config/biome"],
                 vcs: {
                     enabled: true,

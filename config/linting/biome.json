@@ -1,6 +1,6 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
-	"root": true,
+	"$schema": "https://biomejs.dev/schemas/2.5.9/schema.json",
+	"root": false,
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -33,7 +33,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"correctness": {
 				"noUnusedVariables": "off",
 				"noUnusedImports": "off",
@@ -45,8 +45,7 @@
 					"options": {
 						"attributes": ["class", "className"],
 						"functions": ["clsx", "cva", "tw", "tw.*"]
-					},
-					"fix": "safe"
+					}
 				}
 			},
 			"style": {
@@ -99,7 +98,7 @@
 	},
 	"overrides": [
 		{
-			"includes": ["**/*.test.{js,ts,jsx,tsx}"],
+			"includes": ["**/*.{test,spec}.{js,ts,jsx,tsx}"],
 			"linter": {
 				"rules": {
 					"suspicious": {

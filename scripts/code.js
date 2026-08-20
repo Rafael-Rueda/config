@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
 import { readConfig, writeConfig } from "./configUtils.js";
 import { setupGitignore } from "./gitignore.js";
 
@@ -45,7 +46,7 @@ export async function setupCode(targetDir = process.cwd(), options = {}) {
 
     if (options.gemini !== false) {
         console.log("  Checking for Gemini CLI...");
-        const hasGemini = await detectTool("gemini");
+        const hasGemini = options.force || (await detectTool("gemini"));
 
         if (hasGemini || options.force) {
             try {
@@ -65,7 +66,7 @@ export async function setupCode(targetDir = process.cwd(), options = {}) {
 
     if (options.claude !== false) {
         console.log("  Checking for Claude Code...");
-        const hasClaude = await detectTool("claude");
+        const hasClaude = options.force || (await detectTool("claude"));
 
         if (hasClaude || options.force) {
             try {

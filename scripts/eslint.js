@@ -1,6 +1,6 @@
+import { execSync } from "node:child_process";
 import { existsSync, promises as fs } from "node:fs";
 import { join } from "node:path";
-import { execSync } from "node:child_process";
 
 const ESLINT_DEPENDENCIES = [
     "eslint",
@@ -58,6 +58,23 @@ export default tseslint.config(
             "simple-import-sort": simpleImportSort,
         },
         rules: {
+            // Prettier formatting preferences (matching the shared .prettierrc)
+            "prettier/prettier": [
+                "error",
+                {
+                    semi: true,
+                    singleQuote: false,
+                    jsxSingleQuote: false,
+                    tabWidth: 4,
+                    useTabs: false,
+                    printWidth: 120,
+                    trailingComma: "all",
+                    arrowParens: "always",
+                    bracketSpacing: true,
+                    endOfLine: "lf",
+                },
+            ],
+
             // Disabled (matching Biome preferences)
             "@typescript-eslint/no-unused-vars": "off",
             "no-unused-vars": "off",
@@ -68,10 +85,8 @@ export default tseslint.config(
                 "warn",
                 {
                     groups: [
-                        // Node.js builtins
-                        ["^node:"],
-                        // External packages
-                        ["^@?\\\\w"],
+                        // Node.js builtins and external packages
+                        ["^node:", "^@?\\\\w"],
                         // Internal aliases (@/components, @/utils)
                         ["^@/components", "^@/utils"],
                         // Relative imports

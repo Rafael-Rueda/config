@@ -22,9 +22,18 @@ node_modules/
 *.sw?
 
 # AI
+/.agents/
+/.codex/
+/.devin/
 /.gemini/
 /.claude/
+/.cline/
+/.clinerules/
 /.taskmaster/
+/.mcp.json
+/.mcp.local.json
+/.vscode/mcp.json
+/.vscode/*.mcp.json
 PRD.md
 
 # OS specific

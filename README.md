@@ -48,6 +48,18 @@ npm install -D "@rueda.dev/config"
 npx "@rueda.dev/config" setup
 ```
 
+### Agent capabilities (local and private)
+
+The provider-neutral profile manager materializes shared skills only in gitignored local directories. It supports Codex, Devin, Gemini CLI, Claude Code, and Cline without installing any provider:
+
+```bash
+npx "@rueda.dev/config" init --providers codex,devin --routing complex
+npx "@rueda.dev/config" sync --dry-run
+npx "@rueda.dev/config" doctor
+```
+
+Omit `--providers` to use detected CLIs, or pass an empty selection in the interactive wizard for a neutral VS Code/CLI setup. See [the architecture and privacy model](docs/agent-harness-architecture.md).
+
 ### BiomeJS
 ```json
 {

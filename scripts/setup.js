@@ -1,8 +1,9 @@
-import { select, confirm } from "@inquirer/prompts";
+import { checkbox, confirm, select } from "@inquirer/prompts";
+
+import { detectAgentProviders, loadAgentCatalog, setupAgentHarness } from "./agents.js";
 import { setupBiomeSettings } from "./biome.js";
 import { setupESLintSettings } from "./eslint.js";
 import { setupVSCodeSettings } from "./vscode.js";
-import { setupCode } from "./code.js";
 
 function printHeader() {
     console.log("\n┌────────────────────────────────────────────────────┐");
@@ -38,11 +39,24 @@ async function runSetup() {
         ],
     });
 
-    // AI files confirmation
     const generateAIFiles = await confirm({
-        message: "Would you like to generate AI configuration files? (.claude, .gemini, .mcp.json)",
+        message: "Would you like to set up local, gitignored agent capabilities?",
         default: true,
     });
+
+    let selectedProviders = [];
+    if (generateAIFiles) {
+        const catalog = loadAgentCatalog();
+        const detected = await detectAgentProviders();
+        selectedProviders = await checkbox({
+            message: "Which optional agent profiles should discover the shared skills?",
+            choices: Object.entries(catalog.providers).map(([value, provider]) => ({
+                name: `${provider.label}${provider.recommended ? " (first-class)" : ""}${detected[value] ? " - detected" : ""}`,
+                value,
+                checked: detected[value],
+            })),
+        });
+    }
 
     printSection("Setting Up Your Project");
 
@@ -61,8 +75,8 @@ async function runSetup() {
 
     // AI files setup
     if (generateAIFiles) {
-        console.log("\nSetting up AI tools...");
-        await setupCode(process.cwd(), { force: true });
+        console.log("\nSetting up local agent capabilities...");
+        await setupAgentHarness({ providers: selectedProviders });
     } else {
         console.log("\nSkipping AI configuration files...");
     }
@@ -73,9 +87,8 @@ async function runSetup() {
     console.log(`  - VS Code settings (configured for ${lintingChoice === "biome" ? "Biome" : "ESLint + Prettier"})`);
     console.log(`  - ${lintingChoice === "biome" ? "Biome" : "ESLint + Prettier"}`);
     if (generateAIFiles) {
-        console.log("  - Claude Code configuration");
-        console.log("  - Gemini CLI configuration");
-        console.log("  - MCP servers configuration");
+        console.log("  - Shared, provider-neutral agent skills");
+        console.log(`  - Optional profiles: ${selectedProviders.join(", ") || "none (VS Code/CLI neutral)"}`);
     }
 
     console.log("\nHappy coding!\n");

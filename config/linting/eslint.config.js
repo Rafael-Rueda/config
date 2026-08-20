@@ -1,8 +1,8 @@
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
 import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
     // Global ignores
@@ -42,6 +42,23 @@ export default tseslint.config(
             "simple-import-sort": simpleImportSort,
         },
         rules: {
+            // Prettier formatting preferences (matching the shared .prettierrc)
+            "prettier/prettier": [
+                "error",
+                {
+                    semi: true,
+                    singleQuote: false,
+                    jsxSingleQuote: false,
+                    tabWidth: 4,
+                    useTabs: false,
+                    printWidth: 120,
+                    trailingComma: "all",
+                    arrowParens: "always",
+                    bracketSpacing: true,
+                    endOfLine: "lf",
+                },
+            ],
+
             // Desabilitados (como no Biome)
             "@typescript-eslint/no-unused-vars": "off",
             "no-unused-vars": "off",
@@ -52,10 +69,8 @@ export default tseslint.config(
                 "warn",
                 {
                     groups: [
-                        // Node.js builtins
-                        ["^node:"],
-                        // External packages
-                        ["^@?\\w"],
+                        // Node.js builtins and external packages
+                        ["^node:", "^@?\\w"],
                         // Internal aliases (@/components, @/utils)
                         ["^@/components", "^@/utils"],
                         // Relative imports

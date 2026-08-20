@@ -1,64 +1,43 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { execSync } from 'node:child_process';
-import fs from 'node:fs';
-import path from 'node:path';
-import os from 'node:os';
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-// Obtém o caminho absoluto para o diretório do projeto (um nível acima de 'scripts')
-const PROJECT_ROOT = path.resolve(import.meta.dirname, '..');
-const SETUP_SCRIPT_PATH = path.join(PROJECT_ROOT, 'scripts', 'loadAll.js');
+import { setupAgentHarness } from "../scripts/agents.js";
+import { setupCode } from "../scripts/code.js";
 
-describe('Integration Test: @rueda.dev/config setup', () => {
-  let tempDir = '';
+describe("Integration: local AI setup", () => {
+    let tempDir = "";
 
-  beforeAll(() => {
-    // Cria um diretório temporário para o teste
-    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'rueda-config-test-'));
-  });
+    beforeAll(() => {
+        tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "rueda-config-test-"));
+    });
 
-  afterAll(() => {
-    // Limpa o diretório temporário após os testes
-    if (tempDir) {
-      fs.rmSync(tempDir, { recursive: true, force: true });
-    }
-  });
+    afterAll(() => {
+        if (tempDir) fs.rmSync(tempDir, { recursive: true, force: true });
+    });
 
-  it('should create .gitignore, .gemini, .claude, and .mcp.json files', () => {
-    // Executa o script de setup dentro do diretório temporário
-    try {
-      execSync(`node "${SETUP_SCRIPT_PATH}"`, { cwd: tempDir, stdio: 'pipe' });
-    } catch (error) {
-      // Se o comando falhar, exibe o erro de forma clara
-      const stderr = error.stderr ? error.stderr.toString() : 'No stderr';
-      throw new Error(`Setup script failed: ${error.message}\n${stderr}`);
-    }
+    it("creates ignored legacy configs and neutral capabilities", async () => {
+        await setupCode(tempDir, { force: true });
+        await setupAgentHarness({
+            targetDir: tempDir,
+            providers: ["codex", "claude"],
+            capabilities: ["verify-change"],
+        });
 
-    // 1. Verifica o .gitignore
-    const gitignorePath = path.join(tempDir, '.gitignore');
-    expect(fs.existsSync(gitignorePath)).toBe(true);
-    const gitignoreContent = fs.readFileSync(gitignorePath, 'utf-8');
-    expect(gitignoreContent).toContain('/.claude/');
-    expect(gitignoreContent).toContain('/.gemini/');
-    expect(gitignoreContent).toContain('/.taskmaster/');
-    expect(gitignoreContent).toContain('/.mcp.json');
+        const gitignore = fs.readFileSync(path.join(tempDir, ".gitignore"), "utf8");
+        for (const entry of ["/.agents/", "/.codex/", "/.devin/", "/.claude/", "/.cline/", "/.gemini/", "/.mcp.json"]) {
+            expect(gitignore).toContain(entry);
+        }
 
-    // 2. Verifica os arquivos do Gemini
-    const geminiConfigPath = path.join(tempDir, '.gemini', 'settings.json');
-    expect(fs.existsSync(geminiConfigPath)).toBe(true);
-    const geminiContent = JSON.parse(fs.readFileSync(geminiConfigPath, 'utf-8'));
-    expect(geminiContent.model.name).toBe('gemini-2.5-pro');
+        const gemini = JSON.parse(fs.readFileSync(path.join(tempDir, ".gemini", "settings.json"), "utf8"));
+        expect(gemini.model).toBeUndefined();
+        const claude = JSON.parse(fs.readFileSync(path.join(tempDir, ".claude", "settings.json"), "utf8"));
+        expect(claude.model).toBe("sonnet");
+        const mcp = JSON.parse(fs.readFileSync(path.join(tempDir, ".mcp.json"), "utf8"));
+        expect(mcp.mcpServers["taskmaster-ai"].env.MODEL).toBe("claude-sonnet-5");
 
-    // 3. Verifica os arquivos do Claude
-    const claudeConfigPath = path.join(tempDir, '.claude', 'settings.json');
-    expect(fs.existsSync(claudeConfigPath)).toBe(true);
-    const claudeContent = JSON.parse(fs.readFileSync(claudeConfigPath, 'utf-8'));
-    expect(claudeContent.model).toBe('claude-sonnet-4-5-20250929');
-
-    // 4. Verifica o .mcp.json
-    const mcpPath = path.join(tempDir, '.mcp.json');
-    expect(fs.existsSync(mcpPath)).toBe(true);
-    const mcpContent = JSON.parse(fs.readFileSync(mcpPath, 'utf-8'));
-    expect(mcpContent.mcpServers).toHaveProperty('context7');
-    expect(mcpContent.mcpServers).toHaveProperty('taskmaster-ai');
-  });
+        expect(fs.existsSync(path.join(tempDir, ".agents", "skills", "verify-change", "SKILL.md"))).toBe(true);
+        expect(fs.existsSync(path.join(tempDir, ".claude", "skills", "verify-change", "SKILL.md"))).toBe(true);
+    }, 30_000);
 });
